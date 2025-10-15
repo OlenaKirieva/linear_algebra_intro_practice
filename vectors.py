@@ -25,14 +25,7 @@ def get_sparse_vector(dim: int, density: float = 0.5) -> sparse.coo_matrix:
     Returns:
         sparse.coo_matrix: sparse column vector.
     """
-    data = np.random.rand(dim)
-    mask = np.random.rand(dim) < density
-    data[mask] = 0
-    
-    row = np.arange(dim)
-    col = np.zeros(dim)
-    
-    return sparse.coo_matrix((data, (row, col)), shape=(dim, 1))
+    return sparse.random(dim, 1, density=density, format='coo', data_rvs=np.random.rand)
 
 
 def add(x: np.ndarray, y: np.ndarray) -> np.ndarray:
@@ -70,15 +63,8 @@ def linear_combination(vectors: Sequence[np.ndarray], coeffs: Sequence[float]) -
 
     Returns:
         np.ndarray: linear combination of vectors.
-    """
-    if len(vectors) != len(coeffs):
-      raise ValueError("The number of vectors does not match the number of coefficients.")
-      
-    result = np.zeros_like(vectors[0])
-    for v, c in zip(vectors, coeffs):
-        result += c * v
-        
-    return result
+    """    
+    return  sum(c * v for c, v in zip(coeffs, vectors))
 
 
 def dot_product(x: np.ndarray, y: np.ndarray) -> float:
@@ -91,7 +77,7 @@ def dot_product(x: np.ndarray, y: np.ndarray) -> float:
     Returns:
         float: dot product.
     """
-    return float(np.dot(x, y))
+    return float(x.T @ y)
 
 
 def norm(x: np.ndarray, order: int | float) -> float:
@@ -104,20 +90,7 @@ def norm(x: np.ndarray, order: int | float) -> float:
     Returns:
         float: vector norm
     """
-    if order == 1:
-        #  Manhattan: |x1| + |x2| + ... + |xn|
-        return float(np.sum(np.abs(x)))
-    
-    elif order == 2:
-        # Euclidean: sqrt(x1² + x2² + ... + xn²)
-        return float(np.sqrt(np.sum(x ** 2)))
-    
-    elif order == np.inf:
-        # Max: max(|x1|, |x2|, ..., |xn|)
-        return float(np.max(np.abs(x)))
-    
-    else:
-        raise ValueError("Only norms of order 1, 2, or np.inf are supported")
+    return float(np.linalg.norm(x, order))
 
 
 def distance(x: np.ndarray, y: np.ndarray) -> float:
@@ -130,7 +103,7 @@ def distance(x: np.ndarray, y: np.ndarray) -> float:
     Returns:
         float: distance.
     """
-    return float(sum((x-y) ** 2)) ** 0.5
+    return float(np.linalg.norm(x-y, 2))
 
 
 def cos_between_vectors(x: np.ndarray, y: np.ndarray) -> float:
@@ -145,10 +118,10 @@ def cos_between_vectors(x: np.ndarray, y: np.ndarray) -> float:
         np.ndarray: angle in deg.
     """
     
-    cos_theta = dot_product(x, y) / (norm(x, 2) * norm(y, 2))
-    angle_rad = np.arccos(cos_theta)
-    
-    return float(np.degrees(angle_rad))
+    cos_theta = (x.T @ y) / (np.linalg.norm(x,2) * np.linalg.norm(y,2))
+    cos_inverse = np.arccos(cos_theta)
+    degrees = cos_inverse * ((180)/np.pi)
+    return round(float(degrees), 4)
 
 def is_orthogonal(x: np.ndarray, y: np.ndarray) -> bool:
     """Check is vectors orthogonal.
