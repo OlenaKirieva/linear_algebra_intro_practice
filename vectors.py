@@ -147,17 +147,4 @@ def solves_linear_systems(a: np.ndarray, b: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: sytems solution
     """
-    if a.shape[0] != a.shape[1]:
-        raise ValueError("Matrix 'a' must be square")
-
-    if a.shape[0] != b.shape[0]:
-        raise ValueError("Matrix 'a' and vector 'b' dimensions do not match")
-
-    det = np.linalg.det(a)
-    if np.isclose(det, 0.0):
-        raise ValueError("Matrix 'a' is singular — the system has no unique solution")
-
-    a_inv = np.linalg.inv(a)
-    x = a_inv.dot(b)
-
-    return x
+    return np.linalg.solve(a, b)
