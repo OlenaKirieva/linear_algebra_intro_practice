@@ -70,6 +70,6 @@ def svd(x: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     Returns:
         tuple[np.ndarray, np.ndarray, np.ndarray]: The matrices U, S, and V.
     """
-    U, s, Vh = np.linalg.svd(x)
+    U, s, V = np.linalg.svd(x)
 
-    return U, s, Vh
+    return U, s, V
