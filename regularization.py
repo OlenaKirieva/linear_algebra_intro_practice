@@ -62,7 +62,9 @@ def linear_regression(X: np.ndarray, y: np.ndarray) -> BaseEstimator:
     Returns:
         BaseEstimator: Trained linear regression model.
     """
-    raise NotImplementedError
+    model = LinearRegression()
+    model.fit(X, y)
+    return model
 
 
 def ridge_regression(X: np.ndarray, y: np.ndarray) -> BaseEstimator:
