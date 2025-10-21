@@ -11,11 +11,11 @@
 
 ### Classification Metrics (Breast Cancer dataset)
 
-| Model               | Accuracy (Train) | Accuracy (Test) | ROC AUC (Train) | ROC AUC (Test) |
-|---------------------|------------------|------------------|------------------|-----------------|
-| Logistic (no penalty) | 1.000            | 0.965            | 1.000            | 0.976           |
-| Logistic L2          | 0.985            | 1.000            | 0.996            | 1.000           |
-| Logistic L1          | 0.987            | 0.991            | 0.998            | 1.000           |
+| Model          | Accuracy (Train) | Accuracy (Test)  | ROC AUC (Train)  | ROC AUC (Test)  |
+|----------------|------------------|------------------|------------------|-----------------|
+| Logistic       | 1.000            | 0.965            | 1.000            | 0.976           |
+| Logistic L2    | 0.985            | 1.000            | 0.996            | 1.000           |
+| Logistic L1    | 0.987            | 0.991            | 0.998            | 1.000           |
 
 
 
