@@ -55,7 +55,7 @@ def eigen(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     Returns:
         tuple[np.ndarray, np.ndarray]: The eigenvalues and the right eigenvectors of the matrix.
     """
-    values, vectors = np.linalg.eig(A)
+    values, vectors = np.linalg.eig(x)
 
     return values, vectors
 
