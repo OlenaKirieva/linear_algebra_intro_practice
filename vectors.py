@@ -134,7 +134,7 @@ def is_orthogonal(x: np.ndarray, y: np.ndarray) -> bool:
     Returns:
         bool: are vectors orthogonal.
     """
-    return np.isclose(dot_product(x, y), 0)
+    return np.isclose((x.T @ y).item(), 0)
 
 
 def solves_linear_systems(a: np.ndarray, b: np.ndarray) -> np.ndarray:
